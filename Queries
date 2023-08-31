@@ -1,0 +1,212 @@
+
+//CREATING TABLES: 
+create table user_details(  
+    user_id int primary key,  
+    user_name varchar(40) unique,  
+    password varchar(20) not null,   
+    telephone varchar(12) not null  
+);  
+
+create table user_address( 
+    user_id , 
+    addressLine_1 varchar(60) not null, 
+    addressLine_2 varchar(40) , 
+    city varchar(20) not null,  
+    state_name varchar(20) not null, 
+    country varchar(20) not null, 
+    postal_code varchar(6) not null, 
+    landmark varchar(40) , 
+    mobile_no varchar(12), 
+    foreign key(user_id) REFERENCES user_details(user_id)     
+);
+
+create table user_payment( 
+    user_id , 
+    payment_type varchar(20), 
+    bank_provider_name varchar(20), 
+    account_No varchar(16) , 
+    expiry_date date, 
+    foreign key(user_id) REFERENCES user_details(user_id) 
+); 
+
+create table order_details( 
+    order_id int primary key, 
+    user_id, 
+    foreign key (user_id) references user_details(user_id), 
+    total_amount float not null, 
+    payment_status varchar(10) default 'NIL', 
+    payment_id varchar(10) unique, 
+    created_at timestamp 
+); 
+
+create table item_info( 
+    order_id , 
+    foreign key (order_id) references order_details(order_id), 
+    product_id,
+    foreign key (product_id) references product_details(product_id),
+    item_name varchar(40) not null, 
+    quantity int   
+); 
+
+create table product_details( 
+    product_id int primary key, 
+    item_name varchar(40) not null, 
+    description varchar(40) not null,  
+    price float not null,  
+    discount float ,
+    total_amount float not null
+); 
+
+create table warehouse( 
+    warehouse_id int primary key, 
+    company_name varchar(30) unique, 
+    address varchar(60) unique, 
+    city varchar(20) not null, 
+    state_name varchar(20) not null, 
+    country varchar(20) not null,
+    postal_code varchar(10) not null,
+    phone int not null,  
+    ratings int ,
+    check (ratings<=10)
+); 
+
+create table warehouse_stock(
+    warehouse_id,
+    foreign key (warehouse_id) references warehouse(warehouse_id),
+    order_id ,
+    foreign key (order_id) references order_details(order_id),
+    product_id,
+    foreign key(product_id) references product_details(product_id),
+    item_name varchar(30) not null,
+    required_qty int not null,
+    warehouse_remaining_qty int not null
+);
+
+create table carrier_handle(
+    logistic_id int primary key,
+    order_id,
+    foreign key (order_id) references order_details(order_id),
+    warehouse_pickup_status varchar(1) default 'N',
+    delivery_deadline date not null,
+    current_delivery_status varchar(1) default 'N'
+);
+
+create table logistic_info(
+    logistic_id,
+    foreign key (logistic_id) references carrier_handle(logistic_id),
+    address varchar(40) not null,
+    logistic_phone varchar(10) not null, 
+    service_location varchar(20) not null
+);
+
+create table delivery_details(
+    order_id ,
+    foreign key (order_id) references order_details(order_id),
+    product_id ,
+    foreign key (product_id) references product_details(product_id),
+    delivered_status varchar(7) default 'Nil',
+    paid_on_cod_status varchar(5) default 'Nil',
+    return_period int not null,
+    product_ratings int,
+    check (product_ratings<=10),
+    package_ratings int,
+    check (package_ratings<=10)
+);
+
+
+//ALTER QUERIES:
+alter table item_info 
+add foreign key (product_id)
+references product_details(product_id);
+
+alter table product_details
+add foreign key (supplier_id)
+references retail_store(supplier_id);
+
+alter table user_details
+    modify telephone varchar(12);
+
+alter table user_address
+modify postal_code varchar(6);
+
+alter table user_address modify mobile_no varchar(12);
+
+alter table order_details
+    modify payment_id varchar(10) ;
+
+//DROP COLUMN:
+alter table product_details 
+    drop column supplier_id;
+
+
+//DESC QUERIES: 
+desc user_details;
+desc order_details;
+ 
+//INSERT VALUES :
+insert into user_details values(1, 'john_doe', 'hashed_password_123', '123-456-7890');
+insert into user_details values(2, 'jane_smith', 'hashed_password_456', '987-654-3210');
+insert into user_details values(3, 'bob_johnson', 'hashed_password_789', '555-123-4567');
+insert into user_details values(4, 'emily_jones', 'hashed_password_987', '111-222-3333');
+insert into user_details values(5, 'alex_wilson', 'hashed_password_654', '444-555-6666');
+
+INSERT INTO USER_ADDRESS VALUES(1, '123 Kamarajar Street', 'Apartment 4B', 'Chennai', 'Tamil Nadu', 'India', '600001', 'Near Marina Beach', '555-123-4567');
+INSERT INTO USER_ADDRESS VALUES(2, '456 Bharathi Road', NULL, 'Coimbatore', 'Tamil Nadu', 'India', '641001', 'City Center Area',NULL);
+INSERT INTO USER_ADDRESS VALUES(3, '789 Thiruvalluvar Nagar', 'Flat 8', 'Madurai', 'Tamil Nadu', 'India', '625001', 'Adjacent to Meenakshi Temple', '333-789-0123');
+INSERT INTO USER_ADDRESS VALUES(4, '101 Ekkadu Street', NULL, 'Tiruchirappalli', 'Tamil Nadu', 'India', '620001', 'Near Rockfort Temple', NULL);
+INSERT INTO USER_ADDRESS VALUES(5, '234 Annai Theresa Avenue', 'Suite 500', 'Salem', 'Tamil Nadu', 'India', '636001', 'Close to Salem Junction', NULL);
+
+insert into user_payment values(1, 'Credit Card', 'ICICI Bank', '1234567890123456', to_date('2023-12-31','yyyy-mm-dd'));
+insert into user_payment values(2, 'Debit Card', 'BOI Bank', '9876543210987654', to_date('2024-06-30','yyyy-mm-dd'));
+insert into user_payment values(4, 'UPI', 'SBI Bank', 'EMILY@SBI', NULL);
+insert into user_payment values(5, 'Wallet', 'PAYTM Wallet', 'paytmuser123', NULL);
+
+insert into order_details values(1001, 1, 150.00, 'Paid', 'txn123', to_timestamp('2023-08-23 10:15:00','yyyy-mm-dd hh24:mi:ss'));
+insert into order_details values(1002, 2, 75.50, 'Paid', 'txn124', to_timestamp('2023-08-23 11:30:00','yyyy-mm-dd hh24:mi:ss'));
+insert into order_details values(1003, 3, 200.00, 'Pending', NULL, to_timestamp('2023-08-24 14:20:00','yyyy-mm-dd hh24:mi:ss'));
+insert into order_details values(1004, 4, 50.00, 'Paid', 'txn125', to_timestamp('2023-08-25 16:45:00','yyyy-mm-dd hh24:mi:ss'));
+insert into order_details values(1005, 5, 300.75, 'Paid', 'txn126', to_timestamp('2023-08-25 18:10:00','yyyy-mm-dd hh24:mi:ss'));
+
+insert into item_info values(1001, 101, 'Red T-Shirt', 3);
+insert into item_info values(1001, 102, 'Bluetooth Headphones', 1);
+insert into item_info values(1002, 103, 'Phone Case', 2);
+insert into item_info values(1003, 104, 'Blue Jeans', 5);
+insert into item_info values(1003, 105, 'Smartphone', 2);
+insert into item_info values(1003, 106, 'Screen Protector', 1);
+insert into item_info values(1004, 107, 'Laptop Bag', 1);
+insert into item_info values(1005, 108, 'Sneakers', 2);
+insert into item_info values(1005, 109, 'Backpack', 4);
+
+insert into product_details values(101, 'Red T-Shirt', 'Comfortable cotton t-shirt in red color', 350.55, 0.55, 350.00);
+insert into product_details values(102, 'Bluetooth Headphones', 'Wireless over-ear headphones', 1200.99, 0.99, 1200.00);
+insert into product_details values(103, 'Phone Case', 'Protective case for smartphones', 756.55, 6.55, 750.00);
+insert into product_details values(104, 'Blue Jeans', 'Classic denim jeans in blue', 1009.10, 9.10, 1000);
+insert into product_details values(105, 'Smartphone', 'flagship smartphone', 799.99, 9.99, 790);
+insert into product_details values(106, 'Screen Protector', 'screen protector for smartphones', 199.99, 0.99, 199.00);
+insert into product_details values(107, 'Laptop Bag', 'Stylish laptop bag ', 2449.50, 49.50, 2400.00);
+insert into product_details values(108, 'Sneakers', 'Sports shoes for active lifestyle', 2999.90, 9.90, 2990);
+insert into product_details values(109, 'Backpack', 'Durable backpack for everyday use', 3499.50, 99.50, 3400);
+
+//DISPLAY QUERIES:
+select * from user_details;
+select * from user_details where user_name='john_doe ';
+Select item_name, description from product_details ;
+
+//UPDATE QUERIES:
+Update User_details 
+Set telephone=’556-123-9876'
+Where user_id = 2;
+
+//Update product_details
+Set total_amount = price – discount
+Where user_id between 2 and 4;   // where user_id >= 102 and user_id <= 104;
+
+//AGGREGATE FUNCTION:
+Select count(order_id) from Order_details groupby order_Id;
+Select avg(total_amount) from item_info where order_id = ‘1001’;
+
+//DROP TABLE : deleting the entire table values and structure also 
+drop table order_details;
+
+//TRUNCATE : Deleting only the records in the table but not the structure 
+truncate table product_details;

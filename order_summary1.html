@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="extended_file_order_purchase.css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1>Order Summary</h1>
+
+    <form action="process_order.php" method="post">
+        <table>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Details</th>
+                <th>Rating</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+            <tr>
+                <td>Product Name</td>
+                <td>Product description will be available here.</td>
+                <td>
+                    <span class="stars">★★★★☆</span>
+                </td>
+                <td>₹2000.00
+                </td>
+                <td>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1">
+                </td>
+            </tr>
+        </table>
+
+        <label for="use_gst_invoice">Use GST Invoice:</label>
+        <input type="checkbox" id="use_gst_invoice" name="use_gst_invoice">
+
+        <br><br>
+
+        <label for="address">Address:</label>
+        <select id="address" name="address">
+            <option value="address1" selected>Address 1 - Sarvesh, 8 , VOC nagar, Tirupur - 641 603</option>
+            <option value="address2">Address 2 - Kabeleswar, 10, Sultanpet, Tirupur - 641 604</option>
+        </select>
+        <br><br>
+        <div>
+            <h2>Price details:</h2>
+        </div>
+        <table>
+            <tr>
+                <th>Total Price</th>
+                <th>Quantity</th>
+                <th>Delivery Charges</th>
+                <th>Total Amount</th>
+            </tr>
+            <tr>
+                <td>₹2000.00</td>
+                <td>1</td>
+                <td>₹20.00</td>
+                <td>₹2020.00</td>
+            </tr>
+        </table>
+
+        <label for="delivery_date">Delivery by </label>
+        <span id="delivery_date">Sat Oct 14</span>
+
+        <br>
+        <br>
+
+        <input type="submit" value="Cancel Order">
+        <input type="button" value="Continue to Buy">
+
+    </form>
+</body>
+</html>

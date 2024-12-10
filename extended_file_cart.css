@@ -1,0 +1,75 @@
+       /* Basic styling for the cart form */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Styling for the action buttons */
+.cart-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.remove-btn, .buy-now-btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.remove-btn {
+    background-color: #ff6666;
+    color: white;
+}
+
+.buy-now-btn {
+    background-color: #00cc66;
+    color: white;
+}
+
+/* Styling for star ratings */
+.star-ratings {
+    display: flex;
+}
+
+.star {
+    color: gold;
+    font-size: 20px;
+}
+
+/* Styling for the "Add Item" button */
+.add-item-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Styling for the total price section */
+.total-price-section {
+    margin-top: 20px;
+}
+
+/* Styling for the checkout button */
+.checkout-button {
+    padding: 10px;
+    background-color: #00cc66;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

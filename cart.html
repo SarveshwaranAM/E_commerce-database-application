@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="extended_file_cart.css">
+</head>
+<body>
+    <h1>My Shopping Cart</h1>
+    <label for="address">Deliver to </label>
+        <select id="address" name="address">
+            <option value="address1" selected>Sarvesh, 8 , VOC nagar, Tirupur - 641 603</option>
+            <option value="address2">Kabeleswar, 10, Sultanpet, Tirupur - 641 604</option>
+        </select>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Ratings</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Sample product rows -->
+            <tr>
+                <td>Product Name</td>
+                <td>Product description.</td>
+                <td>
+                    <div class="star-ratings">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                    </div>
+                </td>
+                <td class="price">₹2000.00</td>
+                <td><input type="number" value="1" min="1"></td>
+                <td class="cart-actions">
+                    <button class="remove-btn">Remove</button>
+                    <button class="buy-now-btn">Buy Now</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Product Name</td>
+                <td>Product description.</td>
+                <td>
+                    <div class="star-ratings">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                        <span class="star">☆</span>
+                    </div>
+                </td>
+                <td class="price">₹1500.00</td>
+                <td><input type="number" value="1" min="1"></td>
+                <td class="cart-actions">
+                    <button class="remove-btn">Remove</button>
+                    <button class="buy-now-btn">Buy Now</button>
+                </td>
+            </tr>
+            <!-- Add more product rows as needed -->
+        </tbody>
+        <!-- Total Price Details row -->
+        <tfoot>
+            <tr>
+                <td colspan="3"></td>
+                <td><h4>Subtotal:₹3500.00</h4></td>
+                <td><h4>Delivery Charges: ₹50.00</h4></td>
+                <td><h4>Total Amount: ₹3550.00</h4></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- "Add Item" button -->
+    <button class="add-item-button" onclick="addItem()">Add Item</button>
+
+    <!-- Checkout button -->
+    <button class="checkout-button">Checkout</button>
+
+    <!-- Additional cart actions (e.g., Update Cart, Proceed to Checkout) can be added here -->
+
+    <script>
+        // JavaScript function to add a new row to the table
+        function addItem() {
+            const tableBody = document.querySelector('tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>New Product</td>
+                <td>Description for the new product.</td>
+                <td>
+                    <div class="star-ratings">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                        <span class="star">☆</span>
+                        <span class="star">☆</span>
+                    </div>
+                </td>
+                <td class="price">₹1000.00</td>
+                <td><input type="number" value="1" min="1"></td>
+                <td class="cart-actions">
+                    <button class="remove-btn">Remove</button>
+                    <button class="buy-now-btn">Buy Now</button>
+                </td>
+            `;
+            tableBody.appendChild(newRow);
+        }
+    </script>
+</body>
+</html>
+
+
+

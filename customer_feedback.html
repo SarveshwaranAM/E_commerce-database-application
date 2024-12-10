@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Feedback Form</title>
+    <link rel="stylesheet" href="extended_customer_feedaback.css">
+
+</head>
+<body>
+    <h1>Review Product</h1>
+    <form action="/submit-feedback" method="POST" enctype="multipart/form-data">
+        <div class="product-info-container">
+            <div class="product-image">
+                <img src="samsungs23_product.jpeg" alt="Product Image" width="200">
+            </div>
+            <div class="product-details">
+                <h2>SAMSUNG Galaxy S23 Ultra 5G (Phantom Black,128 GB) (12 GB RAM)</h2>
+                <p>Delivered by October 7, 2023</p>
+            </div>
+        </div>
+        <br>
+        <div class="rating-scale">
+            <span class="rating-label">Rating:</span>
+            <div class="rating-buttons">
+                <button type="button" class="rating-button" value="1">1</button>
+                <button type="button" class="rating-button" value="2">2</button>
+                <button type="button" class="rating-button" value="3">3</button>
+                <button type="button" class="rating-button" value="4">4</button>
+                <button type="button" class="rating-button" value="5">5</button>
+            </div>
+        </div>
+        <br>
+        <label for="productImage">Product Image:</label>
+        <input type="file" id="productImage" name="productImage" accept="image/*" required>
+        <br>
+        <label for="review">Write a Review:</label>
+        <textarea id="review" name="review" rows="4" cols="50" placeholder="How is the product? What do you like?"></textarea>
+        <br><br>
+        <div class="button-container">
+            <button type="button">Skip</button>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</body>
+</html>
+
+
